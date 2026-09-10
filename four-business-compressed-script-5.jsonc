@@ -1,0 +1,2338 @@
+{
+  "format": "LLM_OOP_BLUEPRINT_CONSTRUCTION_CONTRACT_V1",
+  "experiment": {
+    "name": "OOP Blueprint Script Convention Experiment",
+    "purpose": "Test whether ChatGPT, Claude and Gemini can construct the same validated four-business software from an explicitly object-oriented LLM script.",
+    "hypothesis": "An LLM construction script can be developed as an OOP model with base types, derived Blueprint types, object instances, encapsulation, composition, association and polymorphic dispatch.",
+    "controlSource": {
+      "format": "LLM_AST_TOKEN_MANIFEST_V4",
+      "compilerVersion": "1.4",
+      "sha256": "da868c3334ae2b29d342fa6cbca019b7132ba71f8e34812326970ff2e3abd9be"
+    },
+    "variableUnderTest": "REPRESENTATION_CHANGED_FROM_TOKENIZED_HIERARCHY_TO_EXPLICIT_OOP_BLUEPRINT_MODEL",
+    "semanticChangePermitted": false
+  },
+  "target": {
+    "software": "PLAIN_JAVA_LOCAL_WEB_APPLICATION",
+    "javaVersion": 21,
+    "externalRuntimeDependencies": "NONE_REQUIRED",
+    "models": [
+      "ChatGPT",
+      "Claude",
+      "Gemini"
+    ],
+    "instruction": "Implement the object model and all inherited, composed and associated contracts. Do not reinterpret the object hierarchy as four unrelated programs or merge the four business instances."
+  },
+  "oopVocabulary": {
+    "extends": "The derived Blueprint inherits the Base Blueprint contract and specializes its declared variation points.",
+    "instanceOf": "The object is a runtime instance of the declared type.",
+    "configuredBy": "The runtime object delegates domain structure and behavior to the referenced immutable Blueprint.",
+    "composes": "The owner exclusively owns the lifecycle and state boundary of the contained objects.",
+    "associatesWith": "The object uses another object without acquiring ownership of its mutable state.",
+    "governedBy": "The state machine controls allowed transitions for the subject object.",
+    "polymorphicDispatch": "The same operation is resolved from the active BusinessApplication and its Blueprint context.",
+    "encapsulationBoundary": "Mutable state cannot be read or written outside the declared business partition."
+  },
+  "typeSystem": {
+    "interfaces": [
+      {
+        "typeId": "IntrospectableBlueprint",
+        "operations": [
+          "describeSelf",
+          "entities",
+          "relationships",
+          "stateMachines",
+          "validate"
+        ]
+      },
+      {
+        "typeId": "BusinessApplicationContract",
+        "operations": [
+          "render",
+          "createRecord",
+          "readRecord",
+          "updateRecord",
+          "deleteRecord",
+          "transitionState",
+          "administration",
+          "introspect"
+        ]
+      },
+      {
+        "typeId": "BusinessContextAwareService",
+        "operations": [
+          "executeWith(BusinessContext context)"
+        ]
+      }
+    ],
+    "abstractTypes": [
+      {
+        "typeId": "BaseBusinessApplicationBlueprint",
+        "oopKind": "ABSTRACT_BASE_BLUEPRINT",
+        "implements": [
+          "IntrospectableBlueprint"
+        ],
+        "immutable": true,
+        "properties": {
+          "applicationId": "ApplicationId",
+          "businessType": "String",
+          "language": "String",
+          "locale": "LocaleId",
+          "defaultTheme": "ThemeId",
+          "allowedThemes": "List<ThemeId>",
+          "entities": "List<EntityDefinition>",
+          "relationships": "List<RelationshipDefinition>",
+          "stateMachines": "List<StateMachineDefinition>",
+          "administrationScope": "AdministrationScope"
+        },
+        "inheritedBehavior": [
+          "Validate typed fields and localized enum labels.",
+          "Validate displayField and secondaryDisplayField picker bindings.",
+          "Validate same-partition relationships and delete restriction.",
+          "Validate that every workflow subject and state transition resolves.",
+          "Expose complete structure through introspection."
+        ],
+        "variationPoints": [
+          "domain entities",
+          "relationships",
+          "workflows",
+          "locale",
+          "themes",
+          "localized labels"
+        ]
+      },
+      {
+        "typeId": "ContextualSharedService",
+        "oopKind": "ABSTRACT_SHARED_SERVICE",
+        "implements": [
+          "BusinessContextAwareService"
+        ],
+        "invariant": "The service is shared, but every operation is scoped by the active BusinessApplication context and must not merge mutable business state."
+      }
+    ],
+    "concreteRuntimeTypes": [
+      {
+        "typeId": "BusinessApplication",
+        "implements": [
+          "BusinessApplicationContract"
+        ],
+        "properties": {
+          "self": "ApplicationSelf",
+          "blueprint": "BaseBusinessApplicationBlueprint",
+          "partition": "PersistencePartition",
+          "administrationState": "AdministrationState"
+        },
+        "constructor": "BusinessApplication(ApplicationSelf self, BaseBusinessApplicationBlueprint blueprint, PersistencePartition partition)",
+        "dispatchRule": "All domain behavior, navigation, fields, labels, actions and workflows are obtained polymorphically from blueprint."
+      }
+    ],
+    "derivedBlueprintTypes": [
+      {
+        "typeId": "ConsultingCompanyBlueprint",
+        "oopKind": "CONCRETE_DERIVED_BLUEPRINT_TYPE",
+        "extends": "BaseBusinessApplicationBlueprint",
+        "inherits": [
+          "identityContract",
+          "ownerContract",
+          "localeContract",
+          "themeContract",
+          "entityRegistryContract",
+          "relationshipRegistryContract",
+          "workflowRegistryContract",
+          "administrationContract",
+          "partitionContract",
+          "introspectionContract"
+        ],
+        "overrides": {
+          "applicationId": "ROBERT_CONSULTING",
+          "businessType": "Consulting Company",
+          "language": "English",
+          "locale": "en-US",
+          "defaultTheme": "professional-blue",
+          "allowedThemes": [
+            "professional-blue",
+            "graphite",
+            "high-contrast"
+          ]
+        },
+        "composes": {
+          "entities": [
+            {
+              "displayField": "name",
+              "fields": [
+                {
+                  "id": "name",
+                  "label": "Name",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "email",
+                  "label": "Email",
+                  "type": "EMAIL",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "EMAIL_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "company",
+                  "label": "Company",
+                  "type": "STRING",
+                  "required": false,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                }
+              ],
+              "name": "Client",
+              "secondaryDisplayField": "email",
+              "id": "clients"
+            },
+            {
+              "displayField": "name",
+              "fields": [
+                {
+                  "id": "name",
+                  "label": "Name",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "clientId",
+                  "label": "Client",
+                  "type": "REFERENCE",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "SAME_PARTITION_ENTITY_PICKER",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "clients",
+                  "pickerScope": "ACTIVE_BUSINESS_PARTITION_ONLY",
+                  "precision": {}
+                },
+                {
+                  "id": "status",
+                  "label": "Status",
+                  "type": "ENUM",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "LOCALIZED_SELECT",
+                  "enumValues": [
+                    "PLANNED",
+                    "ACTIVE",
+                    "ON_HOLD",
+                    "COMPLETED"
+                  ],
+                  "localizedEnumLabels": {
+                    "PLANNED": "Planned",
+                    "ACTIVE": "Active",
+                    "ON_HOLD": "On hold",
+                    "COMPLETED": "Completed"
+                  },
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                }
+              ],
+              "name": "Engagement",
+              "secondaryDisplayField": "status",
+              "id": "engagements"
+            },
+            {
+              "displayField": "number",
+              "fields": [
+                {
+                  "id": "number",
+                  "label": "Number",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "engagementId",
+                  "label": "Engagement",
+                  "type": "REFERENCE",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "SAME_PARTITION_ENTITY_PICKER",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "engagements",
+                  "pickerScope": "ACTIVE_BUSINESS_PARTITION_ONLY",
+                  "precision": {}
+                },
+                {
+                  "id": "amount",
+                  "label": "Amount",
+                  "type": "DECIMAL_19_2",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "DECIMAL_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {
+                    "fractionDigits": 2,
+                    "totalDigits": 19
+                  }
+                },
+                {
+                  "id": "status",
+                  "label": "Status",
+                  "type": "ENUM",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "LOCALIZED_SELECT",
+                  "enumValues": [
+                    "DRAFT",
+                    "ISSUED",
+                    "PAID",
+                    "VOID"
+                  ],
+                  "localizedEnumLabels": {
+                    "DRAFT": "Draft",
+                    "ISSUED": "Issued",
+                    "PAID": "Paid",
+                    "VOID": "Void"
+                  },
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                }
+              ],
+              "name": "Invoice",
+              "secondaryDisplayField": "status",
+              "id": "invoices"
+            }
+          ],
+          "relationships": [
+            {
+              "onDelete": "RESTRICT",
+              "sourceEntity": "engagements",
+              "targetEntity": "clients",
+              "scope": "SAME_BUSINESS_PARTITION_ONLY",
+              "field": "clientId"
+            },
+            {
+              "onDelete": "RESTRICT",
+              "sourceEntity": "invoices",
+              "targetEntity": "engagements",
+              "scope": "SAME_BUSINESS_PARTITION_ONLY",
+              "field": "engagementId"
+            }
+          ],
+          "stateMachines": [
+            {
+              "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+              "authority": "ACTIVE_BUSINESS_USER",
+              "subjectEntity": "engagements",
+              "transitions": [
+                {
+                  "localizedActionLabel": {
+                    "de": "Aktiv",
+                    "en": "Active",
+                    "es": "Activo",
+                    "fr": "Actif"
+                  },
+                  "to": "ACTIVE",
+                  "from": "PLANNED"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Pausiert",
+                    "en": "On hold",
+                    "es": "En espera",
+                    "fr": "En attente"
+                  },
+                  "to": "ON_HOLD",
+                  "from": "ACTIVE"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Aktiv",
+                    "en": "Active",
+                    "es": "Activo",
+                    "fr": "Actif"
+                  },
+                  "to": "ACTIVE",
+                  "from": "ON_HOLD"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Abgeschlossen",
+                    "en": "Completed",
+                    "es": "Completado",
+                    "fr": "Terminé"
+                  },
+                  "to": "COMPLETED",
+                  "from": "ACTIVE"
+                }
+              ],
+              "stateField": "status",
+              "id": "ENGAGEMENT_LIFECYCLE"
+            },
+            {
+              "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+              "authority": "ACTIVE_BUSINESS_USER",
+              "subjectEntity": "invoices",
+              "transitions": [
+                {
+                  "localizedActionLabel": {
+                    "de": "Ausgestellt",
+                    "en": "Issued",
+                    "es": "Emitida",
+                    "fr": "Émise"
+                  },
+                  "to": "ISSUED",
+                  "from": "DRAFT"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Bezahlt",
+                    "en": "Paid",
+                    "es": "Pagada",
+                    "fr": "Payée"
+                  },
+                  "to": "PAID",
+                  "from": "ISSUED"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Storniert",
+                    "en": "Void",
+                    "es": "Anulada",
+                    "fr": "Annulée"
+                  },
+                  "to": "VOID",
+                  "from": "DRAFT"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Storniert",
+                    "en": "Void",
+                    "es": "Anulada",
+                    "fr": "Annulée"
+                  },
+                  "to": "VOID",
+                  "from": "ISSUED"
+                }
+              ],
+              "stateField": "status",
+              "id": "INVOICE_LIFECYCLE"
+            }
+          ]
+        },
+        "invariants": [
+          "Every entity, relationship and workflow is owned by this Blueprint type.",
+          "Every reference resolves inside the same BusinessApplication instance.",
+          "No mutable state is inherited or shared with another derived Blueprint.",
+          "Canonical enum keys are persisted; localized labels are projections only."
+        ]
+      },
+      {
+        "typeId": "PropertyManagementBlueprint",
+        "oopKind": "CONCRETE_DERIVED_BLUEPRINT_TYPE",
+        "extends": "BaseBusinessApplicationBlueprint",
+        "inherits": [
+          "identityContract",
+          "ownerContract",
+          "localeContract",
+          "themeContract",
+          "entityRegistryContract",
+          "relationshipRegistryContract",
+          "workflowRegistryContract",
+          "administrationContract",
+          "partitionContract",
+          "introspectionContract"
+        ],
+        "overrides": {
+          "applicationId": "SOFIA_PROPERTY",
+          "businessType": "Property Management",
+          "language": "Español",
+          "locale": "es-ES",
+          "defaultTheme": "calm-property",
+          "allowedThemes": [
+            "calm-property",
+            "terracotta",
+            "high-contrast"
+          ]
+        },
+        "composes": {
+          "entities": [
+            {
+              "displayField": "name",
+              "fields": [
+                {
+                  "id": "name",
+                  "label": "Nombre",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "address",
+                  "label": "Dirección",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "status",
+                  "label": "Estado",
+                  "type": "ENUM",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "LOCALIZED_SELECT",
+                  "enumValues": [
+                    "AVAILABLE",
+                    "OCCUPIED",
+                    "MAINTENANCE"
+                  ],
+                  "localizedEnumLabels": {
+                    "AVAILABLE": "Disponible",
+                    "OCCUPIED": "Ocupada",
+                    "MAINTENANCE": "Mantenimiento"
+                  },
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                }
+              ],
+              "name": "Propiedad",
+              "secondaryDisplayField": "address",
+              "id": "properties"
+            },
+            {
+              "displayField": "name",
+              "fields": [
+                {
+                  "id": "name",
+                  "label": "Nombre",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "email",
+                  "label": "Correo",
+                  "type": "EMAIL",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "EMAIL_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "phone",
+                  "label": "Teléfono",
+                  "type": "STRING",
+                  "required": false,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                }
+              ],
+              "name": "Inquilino",
+              "secondaryDisplayField": "email",
+              "id": "tenants"
+            },
+            {
+              "displayField": "propertyId",
+              "fields": [
+                {
+                  "id": "propertyId",
+                  "label": "Propiedad",
+                  "type": "REFERENCE",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "SAME_PARTITION_ENTITY_PICKER",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "properties",
+                  "pickerScope": "ACTIVE_BUSINESS_PARTITION_ONLY",
+                  "precision": {}
+                },
+                {
+                  "id": "tenantId",
+                  "label": "Inquilino",
+                  "type": "REFERENCE",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "SAME_PARTITION_ENTITY_PICKER",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "tenants",
+                  "pickerScope": "ACTIVE_BUSINESS_PARTITION_ONLY",
+                  "precision": {}
+                },
+                {
+                  "id": "status",
+                  "label": "Estado",
+                  "type": "ENUM",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "LOCALIZED_SELECT",
+                  "enumValues": [
+                    "DRAFT",
+                    "ACTIVE",
+                    "EXPIRED",
+                    "TERMINATED"
+                  ],
+                  "localizedEnumLabels": {
+                    "DRAFT": "Borrador",
+                    "ACTIVE": "Activo",
+                    "EXPIRED": "Vencido",
+                    "TERMINATED": "Terminado"
+                  },
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                }
+              ],
+              "name": "Contrato",
+              "secondaryDisplayField": "status",
+              "id": "leases"
+            },
+            {
+              "displayField": "description",
+              "fields": [
+                {
+                  "id": "propertyId",
+                  "label": "Propiedad",
+                  "type": "REFERENCE",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "SAME_PARTITION_ENTITY_PICKER",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "properties",
+                  "pickerScope": "ACTIVE_BUSINESS_PARTITION_ONLY",
+                  "precision": {}
+                },
+                {
+                  "id": "description",
+                  "label": "Descripción",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "status",
+                  "label": "Estado",
+                  "type": "ENUM",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "LOCALIZED_SELECT",
+                  "enumValues": [
+                    "OPEN",
+                    "ASSIGNED",
+                    "IN_PROGRESS",
+                    "COMPLETED",
+                    "CLOSED"
+                  ],
+                  "localizedEnumLabels": {
+                    "OPEN": "Abierta",
+                    "ASSIGNED": "Asignada",
+                    "IN_PROGRESS": "En progreso",
+                    "COMPLETED": "Completado",
+                    "CLOSED": "Cerrada"
+                  },
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                }
+              ],
+              "name": "Solicitud de mantenimiento",
+              "secondaryDisplayField": "status",
+              "id": "maintenance"
+            }
+          ],
+          "relationships": [
+            {
+              "onDelete": "RESTRICT",
+              "sourceEntity": "leases",
+              "targetEntity": "properties",
+              "scope": "SAME_BUSINESS_PARTITION_ONLY",
+              "field": "propertyId"
+            },
+            {
+              "onDelete": "RESTRICT",
+              "sourceEntity": "leases",
+              "targetEntity": "tenants",
+              "scope": "SAME_BUSINESS_PARTITION_ONLY",
+              "field": "tenantId"
+            },
+            {
+              "onDelete": "RESTRICT",
+              "sourceEntity": "maintenance",
+              "targetEntity": "properties",
+              "scope": "SAME_BUSINESS_PARTITION_ONLY",
+              "field": "propertyId"
+            }
+          ],
+          "stateMachines": [
+            {
+              "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+              "authority": "ACTIVE_BUSINESS_USER",
+              "subjectEntity": "leases",
+              "transitions": [
+                {
+                  "localizedActionLabel": {
+                    "de": "Aktiv",
+                    "en": "Active",
+                    "es": "Activo",
+                    "fr": "Actif"
+                  },
+                  "to": "ACTIVE",
+                  "from": "DRAFT"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Abgelaufen",
+                    "en": "Expired",
+                    "es": "Vencido",
+                    "fr": "Expiré"
+                  },
+                  "to": "EXPIRED",
+                  "from": "ACTIVE"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Beendet",
+                    "en": "Terminated",
+                    "es": "Terminado",
+                    "fr": "Résilié"
+                  },
+                  "to": "TERMINATED",
+                  "from": "ACTIVE"
+                }
+              ],
+              "stateField": "status",
+              "id": "LEASE_LIFECYCLE"
+            },
+            {
+              "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+              "authority": "ACTIVE_BUSINESS_USER",
+              "subjectEntity": "maintenance",
+              "transitions": [
+                {
+                  "localizedActionLabel": {
+                    "de": "Zugewiesen",
+                    "en": "Assigned",
+                    "es": "Asignada",
+                    "fr": "Assignée"
+                  },
+                  "to": "ASSIGNED",
+                  "from": "OPEN"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "In Bearbeitung",
+                    "en": "In progress",
+                    "es": "En progreso",
+                    "fr": "En cours"
+                  },
+                  "to": "IN_PROGRESS",
+                  "from": "ASSIGNED"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Abgeschlossen",
+                    "en": "Completed",
+                    "es": "Completado",
+                    "fr": "Terminé"
+                  },
+                  "to": "COMPLETED",
+                  "from": "IN_PROGRESS"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Geschlossen",
+                    "en": "Closed",
+                    "es": "Cerrada",
+                    "fr": "Fermée"
+                  },
+                  "to": "CLOSED",
+                  "from": "COMPLETED"
+                }
+              ],
+              "stateField": "status",
+              "id": "MAINTENANCE_LIFECYCLE"
+            }
+          ]
+        },
+        "invariants": [
+          "Every entity, relationship and workflow is owned by this Blueprint type.",
+          "Every reference resolves inside the same BusinessApplication instance.",
+          "No mutable state is inherited or shared with another derived Blueprint.",
+          "Canonical enum keys are persisted; localized labels are projections only."
+        ]
+      },
+      {
+        "typeId": "RestaurantBlueprint",
+        "oopKind": "CONCRETE_DERIVED_BLUEPRINT_TYPE",
+        "extends": "BaseBusinessApplicationBlueprint",
+        "inherits": [
+          "identityContract",
+          "ownerContract",
+          "localeContract",
+          "themeContract",
+          "entityRegistryContract",
+          "relationshipRegistryContract",
+          "workflowRegistryContract",
+          "administrationContract",
+          "partitionContract",
+          "introspectionContract"
+        ],
+        "overrides": {
+          "applicationId": "MARIE_RESTAURANT",
+          "businessType": "Restaurant",
+          "language": "Français",
+          "locale": "fr-FR",
+          "defaultTheme": "warm-hospitality",
+          "allowedThemes": [
+            "warm-hospitality",
+            "bistro-dark",
+            "high-contrast"
+          ]
+        },
+        "composes": {
+          "entities": [
+            {
+              "displayField": "name",
+              "fields": [
+                {
+                  "id": "name",
+                  "label": "Nom",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "category",
+                  "label": "Catégorie",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "price",
+                  "label": "Prix",
+                  "type": "DECIMAL_19_2",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "DECIMAL_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {
+                    "fractionDigits": 2,
+                    "totalDigits": 19
+                  }
+                }
+              ],
+              "name": "Article du menu",
+              "secondaryDisplayField": "category",
+              "id": "menu-items"
+            },
+            {
+              "displayField": "guestName",
+              "fields": [
+                {
+                  "id": "guestName",
+                  "label": "Nom du client",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "reservationDate",
+                  "label": "Date",
+                  "type": "ISO_DATE",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "DATE_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "partySize",
+                  "label": "Nombre de personnes",
+                  "type": "INTEGER",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "INTEGER_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                }
+              ],
+              "name": "Réservation",
+              "secondaryDisplayField": "reservationDate",
+              "id": "reservations"
+            },
+            {
+              "displayField": "tableNumber",
+              "fields": [
+                {
+                  "id": "tableNumber",
+                  "label": "Table",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "status",
+                  "label": "Statut",
+                  "type": "ENUM",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "LOCALIZED_SELECT",
+                  "enumValues": [
+                    "NEW",
+                    "PREPARING",
+                    "READY",
+                    "SERVED",
+                    "CANCELLED"
+                  ],
+                  "localizedEnumLabels": {
+                    "NEW": "Nouvelle",
+                    "PREPARING": "En préparation",
+                    "READY": "Prête",
+                    "SERVED": "Servie",
+                    "CANCELLED": "Annulée"
+                  },
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "total",
+                  "label": "Total",
+                  "type": "DECIMAL_19_2",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "DECIMAL_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {
+                    "fractionDigits": 2,
+                    "totalDigits": 19
+                  }
+                }
+              ],
+              "name": "Commande",
+              "secondaryDisplayField": "status",
+              "id": "orders"
+            }
+          ],
+          "relationships": [],
+          "stateMachines": [
+            {
+              "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+              "authority": "ACTIVE_BUSINESS_USER",
+              "subjectEntity": "orders",
+              "transitions": [
+                {
+                  "localizedActionLabel": {
+                    "de": "In Zubereitung",
+                    "en": "Preparing",
+                    "es": "En preparación",
+                    "fr": "En préparation"
+                  },
+                  "to": "PREPARING",
+                  "from": "NEW"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Bereit",
+                    "en": "Ready",
+                    "es": "Lista",
+                    "fr": "Prête"
+                  },
+                  "to": "READY",
+                  "from": "PREPARING"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Serviert",
+                    "en": "Served",
+                    "es": "Servida",
+                    "fr": "Servie"
+                  },
+                  "to": "SERVED",
+                  "from": "READY"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Storniert",
+                    "en": "Cancelled",
+                    "es": "Cancelada",
+                    "fr": "Annulée"
+                  },
+                  "to": "CANCELLED",
+                  "from": "NEW"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Storniert",
+                    "en": "Cancelled",
+                    "es": "Cancelada",
+                    "fr": "Annulée"
+                  },
+                  "to": "CANCELLED",
+                  "from": "PREPARING"
+                }
+              ],
+              "stateField": "status",
+              "id": "ORDER_LIFECYCLE"
+            }
+          ]
+        },
+        "invariants": [
+          "Every entity, relationship and workflow is owned by this Blueprint type.",
+          "Every reference resolves inside the same BusinessApplication instance.",
+          "No mutable state is inherited or shared with another derived Blueprint.",
+          "Canonical enum keys are persisted; localized labels are projections only."
+        ]
+      },
+      {
+        "typeId": "MarketplaceBlueprint",
+        "oopKind": "CONCRETE_DERIVED_BLUEPRINT_TYPE",
+        "extends": "BaseBusinessApplicationBlueprint",
+        "inherits": [
+          "identityContract",
+          "ownerContract",
+          "localeContract",
+          "themeContract",
+          "entityRegistryContract",
+          "relationshipRegistryContract",
+          "workflowRegistryContract",
+          "administrationContract",
+          "partitionContract",
+          "introspectionContract"
+        ],
+        "overrides": {
+          "applicationId": "HANS_MARKETPLACE",
+          "businessType": "Marketplace",
+          "language": "Deutsch",
+          "locale": "de-DE",
+          "defaultTheme": "structured-commerce",
+          "allowedThemes": [
+            "structured-commerce",
+            "midnight-market",
+            "high-contrast"
+          ]
+        },
+        "composes": {
+          "entities": [
+            {
+              "displayField": "name",
+              "fields": [
+                {
+                  "id": "name",
+                  "label": "Name",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "email",
+                  "label": "E-Mail",
+                  "type": "EMAIL",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "EMAIL_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "status",
+                  "label": "Status",
+                  "type": "ENUM",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "LOCALIZED_SELECT",
+                  "enumValues": [
+                    "PENDING",
+                    "ACTIVE",
+                    "SUSPENDED"
+                  ],
+                  "localizedEnumLabels": {
+                    "PENDING": "Ausstehend",
+                    "ACTIVE": "Aktiv",
+                    "SUSPENDED": "Gesperrt"
+                  },
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                }
+              ],
+              "name": "Verkäufer",
+              "secondaryDisplayField": "email",
+              "id": "sellers"
+            },
+            {
+              "displayField": "title",
+              "fields": [
+                {
+                  "id": "title",
+                  "label": "Titel",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "sellerId",
+                  "label": "Verkäufer",
+                  "type": "REFERENCE",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "SAME_PARTITION_ENTITY_PICKER",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "sellers",
+                  "pickerScope": "ACTIVE_BUSINESS_PARTITION_ONLY",
+                  "precision": {}
+                },
+                {
+                  "id": "price",
+                  "label": "Preis",
+                  "type": "DECIMAL_19_2",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "DECIMAL_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {
+                    "fractionDigits": 2,
+                    "totalDigits": 19
+                  }
+                }
+              ],
+              "name": "Angebot",
+              "secondaryDisplayField": "price",
+              "id": "listings"
+            },
+            {
+              "displayField": "number",
+              "fields": [
+                {
+                  "id": "number",
+                  "label": "Nummer",
+                  "type": "STRING",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "TEXT_INPUT",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                },
+                {
+                  "id": "listingId",
+                  "label": "Angebot",
+                  "type": "REFERENCE",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "SAME_PARTITION_ENTITY_PICKER",
+                  "enumValues": [],
+                  "localizedEnumLabels": {},
+                  "referenceEntity": "listings",
+                  "pickerScope": "ACTIVE_BUSINESS_PARTITION_ONLY",
+                  "precision": {}
+                },
+                {
+                  "id": "status",
+                  "label": "Status",
+                  "type": "ENUM",
+                  "required": true,
+                  "editable": true,
+                  "generated": false,
+                  "uiControl": "LOCALIZED_SELECT",
+                  "enumValues": [
+                    "PLACED",
+                    "PAID",
+                    "FULFILLED",
+                    "CANCELLED"
+                  ],
+                  "localizedEnumLabels": {
+                    "PLACED": "Aufgegeben",
+                    "PAID": "Bezahlt",
+                    "FULFILLED": "Erfüllt",
+                    "CANCELLED": "Storniert"
+                  },
+                  "referenceEntity": "",
+                  "pickerScope": "NOT_APPLICABLE",
+                  "precision": {}
+                }
+              ],
+              "name": "Bestellung",
+              "secondaryDisplayField": "status",
+              "id": "orders"
+            }
+          ],
+          "relationships": [
+            {
+              "onDelete": "RESTRICT",
+              "sourceEntity": "listings",
+              "targetEntity": "sellers",
+              "scope": "SAME_BUSINESS_PARTITION_ONLY",
+              "field": "sellerId"
+            },
+            {
+              "onDelete": "RESTRICT",
+              "sourceEntity": "orders",
+              "targetEntity": "listings",
+              "scope": "SAME_BUSINESS_PARTITION_ONLY",
+              "field": "listingId"
+            }
+          ],
+          "stateMachines": [
+            {
+              "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+              "authority": "ACTIVE_BUSINESS_USER",
+              "subjectEntity": "sellers",
+              "transitions": [
+                {
+                  "localizedActionLabel": {
+                    "de": "Aktiv",
+                    "en": "Active",
+                    "es": "Activo",
+                    "fr": "Actif"
+                  },
+                  "to": "ACTIVE",
+                  "from": "PENDING"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Gesperrt",
+                    "en": "Suspended",
+                    "es": "Suspendido",
+                    "fr": "Suspendu"
+                  },
+                  "to": "SUSPENDED",
+                  "from": "ACTIVE"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Aktiv",
+                    "en": "Active",
+                    "es": "Activo",
+                    "fr": "Actif"
+                  },
+                  "to": "ACTIVE",
+                  "from": "SUSPENDED"
+                }
+              ],
+              "stateField": "status",
+              "id": "SELLER_LIFECYCLE"
+            },
+            {
+              "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+              "authority": "ACTIVE_BUSINESS_USER",
+              "subjectEntity": "orders",
+              "transitions": [
+                {
+                  "localizedActionLabel": {
+                    "de": "Bezahlt",
+                    "en": "Paid",
+                    "es": "Pagada",
+                    "fr": "Payée"
+                  },
+                  "to": "PAID",
+                  "from": "PLACED"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Erfüllt",
+                    "en": "Fulfilled",
+                    "es": "Completado",
+                    "fr": "Traitée"
+                  },
+                  "to": "FULFILLED",
+                  "from": "PAID"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Storniert",
+                    "en": "Cancelled",
+                    "es": "Cancelada",
+                    "fr": "Annulée"
+                  },
+                  "to": "CANCELLED",
+                  "from": "PLACED"
+                },
+                {
+                  "localizedActionLabel": {
+                    "de": "Storniert",
+                    "en": "Cancelled",
+                    "es": "Cancelada",
+                    "fr": "Annulée"
+                  },
+                  "to": "CANCELLED",
+                  "from": "PAID"
+                }
+              ],
+              "stateField": "status",
+              "id": "MARKET_ORDER_LIFECYCLE"
+            }
+          ]
+        },
+        "invariants": [
+          "Every entity, relationship and workflow is owned by this Blueprint type.",
+          "Every reference resolves inside the same BusinessApplication instance.",
+          "No mutable state is inherited or shared with another derived Blueprint.",
+          "Canonical enum keys are persisted; localized labels are projections only."
+        ]
+      }
+    ]
+  },
+  "objectInstances": {
+    "root": {
+      "objectId": "fourBusinessContainer",
+      "instanceOf": "FourBusinessContainer",
+      "self": {
+        "accessMode": "DEMONSTRATION_USER_SWITCHER",
+        "defaultUser": "robert",
+        "accessWarning": "The selector intentionally permits switching among all four demo identities; replace it with authenticated server-resolved identity for production.",
+        "productionAuthentication": false,
+        "childrenRemainIndependent": true,
+        "id": "FOUR_BUSINESS_DEMO"
+      },
+      "composes": [
+        "robertApplication",
+        "sofiaApplication",
+        "marieApplication",
+        "hansApplication"
+      ],
+      "providesSharedServices": [
+        "uiProjection",
+        "persistenceService",
+        "requestContextResolver",
+        "administrationProjection",
+        "auditService",
+        "seedService"
+      ]
+    },
+    "businessApplications": [
+      {
+        "objectId": "robertApplication",
+        "instanceOf": "BusinessApplication",
+        "configuredBy": "ConsultingCompanyBlueprint",
+        "owner": {
+          "person": "Robert",
+          "userId": "robert"
+        },
+        "objectState": {
+          "applicationId": "ROBERT_CONSULTING",
+          "locale": "en-US",
+          "theme": "professional-blue",
+          "persistencePartition": "robert/robert_consulting",
+          "administrationScope": "OWN_BUSINESS_ONLY"
+        },
+        "encapsulationBoundary": "OWN_BUSINESS_ONLY"
+      },
+      {
+        "objectId": "sofiaApplication",
+        "instanceOf": "BusinessApplication",
+        "configuredBy": "PropertyManagementBlueprint",
+        "owner": {
+          "person": "Sofia",
+          "userId": "sofia"
+        },
+        "objectState": {
+          "applicationId": "SOFIA_PROPERTY",
+          "locale": "es-ES",
+          "theme": "calm-property",
+          "persistencePartition": "sofia/sofia_property",
+          "administrationScope": "OWN_BUSINESS_ONLY"
+        },
+        "encapsulationBoundary": "OWN_BUSINESS_ONLY"
+      },
+      {
+        "objectId": "marieApplication",
+        "instanceOf": "BusinessApplication",
+        "configuredBy": "RestaurantBlueprint",
+        "owner": {
+          "person": "Marie",
+          "userId": "marie"
+        },
+        "objectState": {
+          "applicationId": "MARIE_RESTAURANT",
+          "locale": "fr-FR",
+          "theme": "warm-hospitality",
+          "persistencePartition": "marie/marie_restaurant",
+          "administrationScope": "OWN_BUSINESS_ONLY"
+        },
+        "encapsulationBoundary": "OWN_BUSINESS_ONLY"
+      },
+      {
+        "objectId": "hansApplication",
+        "instanceOf": "BusinessApplication",
+        "configuredBy": "MarketplaceBlueprint",
+        "owner": {
+          "person": "Hans",
+          "userId": "hans"
+        },
+        "objectState": {
+          "applicationId": "HANS_MARKETPLACE",
+          "locale": "de-DE",
+          "theme": "structured-commerce",
+          "persistencePartition": "hans/hans_marketplace",
+          "administrationScope": "OWN_BUSINESS_ONLY"
+        },
+        "encapsulationBoundary": "OWN_BUSINESS_ONLY"
+      }
+    ],
+    "sharedServices": [
+      {
+        "objectId": "uiProjection",
+        "instanceOf": "ContextualSharedService",
+        "specialization": "UIProjectionService",
+        "contract": {
+          "stateTransitionControl": "EXPLICIT_ALLOWED_TRANSITION_BUTTONS",
+          "scope": "SHARED_RENDERING_CAPABILITY",
+          "fieldTypeControlMap": {
+            "REFERENCE": "SAME_PARTITION_ENTITY_PICKER",
+            "STRING": "TEXT_INPUT",
+            "ENUM": "LOCALIZED_SELECT",
+            "INTEGER": "INTEGER_INPUT",
+            "ISO_DATE": "DATE_INPUT",
+            "EMAIL": "EMAIL_INPUT",
+            "DECIMAL_19_2": "DECIMAL_INPUT"
+          },
+          "unrestrictedStatusEditing": false,
+          "enumDisplay": "BUSINESS_LOCALE_LABEL",
+          "behaviorControlledByActiveBusiness": true,
+          "projectionRule": "REPLACE_NOT_MERGE",
+          "enumStorage": "CANONICAL_UPPERCASE_VALUE"
+        }
+      },
+      {
+        "objectId": "persistenceService",
+        "instanceOf": "ContextualSharedService",
+        "specialization": "PartitionedPersistenceService",
+        "contract": {
+          "logicalIsolation": "ONE_PARTITION_PER_BUSINESS",
+          "keyRule": "No storage index or lookup may use entityId alone; duplicate entity IDs across business partitions are intentional isolation evidence.",
+          "crossBusinessJoins": "PROHIBITED",
+          "isolationGate": "SERVER_ENFORCED",
+          "canonicalStorageKey": [
+            "containerId",
+            "businessAppId",
+            "schemaVersion",
+            "entityId",
+            "recordId"
+          ],
+          "physicalService": "SHARED_FILE_DATABASE"
+        }
+      },
+      {
+        "objectId": "requestContextResolver",
+        "instanceOf": "ContextualSharedService",
+        "specialization": "RequestContextResolver",
+        "contract": {
+          "entityAuthorization": "entityId MUST be declared by the resolved business",
+          "businessResolution": "SERVER_RESOLVES selectedUserId TO exactly one registered businessAppId and partition",
+          "recordRoute": "/api/{selectedUserId}/records/{entityId}",
+          "sessionBehavior": "DEMO_SELECTOR; NOT AUTHENTICATION",
+          "submissionConsistency": "_activeEntity MUST equal route entityId",
+          "crossBusinessOverride": "PROHIBITED",
+          "transitionRoute": "/api/{selectedUserId}/records/{entityId}/{recordId}/transition"
+        }
+      },
+      {
+        "objectId": "administrationProjection",
+        "instanceOf": "ContextualSharedService",
+        "specialization": "AdministrationService",
+        "contract": {
+          "surfaceRequired": true,
+          "surfaceType": "STANDALONE_NAVIGATION_VIEW",
+          "route": "/administration",
+          "navigationPosition": "BOTTOM_LEFT",
+          "visibleForEveryDemoUser": true,
+          "userAware": true,
+          "stateOwnership": "ACTIVE_BUSINESS_SELF",
+          "scope": "OWN_BUSINESS_ONLY",
+          "persistence": "SURVIVES_PROCESS_RESTART",
+          "reprojectOnUserChange": true,
+          "projectionRule": "REPLACE_NOT_MERGE",
+          "fields": [
+            {
+              "persisted": true,
+              "labelKey": "BUSINESS_DISPLAY_NAME",
+              "control": "TEXT_INPUT",
+              "required": true,
+              "editable": true,
+              "id": "businessName"
+            },
+            {
+              "persisted": true,
+              "labelKey": "THEME",
+              "control": "ALLOWED_THEME_SELECT",
+              "required": true,
+              "editable": true,
+              "id": "theme"
+            },
+            {
+              "persisted": true,
+              "labelKey": "NOTIFICATIONS",
+              "control": "LOCALIZED_ENABLED_DISABLED_SELECT",
+              "required": true,
+              "editable": true,
+              "id": "notifications"
+            },
+            {
+              "persisted": false,
+              "labelKey": "LANGUAGE_LOCALE",
+              "control": "READ_ONLY_TEXT",
+              "source": "ACTIVE_BUSINESS_SELF",
+              "editable": false,
+              "id": "locale"
+            },
+            {
+              "persisted": true,
+              "labelKey": "SCHEMA_VERSION",
+              "control": "READ_ONLY_TEXT",
+              "source": "ACTIVE_BUSINESS_PARTITION",
+              "editable": false,
+              "id": "schemaVersion"
+            },
+            {
+              "persisted": false,
+              "labelKey": "PERSISTENCE_PARTITION",
+              "control": "READ_ONLY_TEXT",
+              "source": "SERVER_RESOLVED_CONTEXT",
+              "editable": false,
+              "id": "persistencePartition"
+            }
+          ],
+          "actions": [
+            {
+              "validation": "REQUIRED_FIELDS_AND_ALLOWED_VALUES",
+              "control": "PRIMARY_BUTTON",
+              "auditEvents": [
+                "THEME_CHANGED",
+                "ADMINISTRATION_CHANGED"
+              ],
+              "writes": "ACTIVE_BUSINESS_PARTITION_ONLY",
+              "id": "SAVE_ADMINISTRATION"
+            }
+          ],
+          "accessWarningRequired": true,
+          "accessWarningSource": "containerSelf.accessWarning",
+          "labelsLocalizedByActiveBusiness": true,
+          "auditResponsibility": "NONE_USE_AUDIT_NEURON",
+          "acceptanceScenarios": [
+            "Administration appears as a bottom-left navigation item for every demo user.",
+            "Opening Administration renders every declared field and action; omission of the view or a required control is a build failure.",
+            "Switching users while Administration is open reconstructs the Administration view for the newly active business without merging state.",
+            "Saved business name, theme and notification preference survive a complete process restart and remain isolated from every other business.",
+            "Locale, schema version and persistence partition are visible but cannot be edited.",
+            "Every saved administrative mutation emits the declared partition-scoped audit event.",
+            "The view visibly states that the demo selector is not production authentication."
+          ]
+        }
+      },
+      {
+        "objectId": "auditService",
+        "instanceOf": "ContextualSharedService",
+        "specialization": "AuditService",
+        "contract": {
+          "scope": "SHARED_CAPABILITY_WITH_BUSINESS_PARTITION_CONTEXT",
+          "eventFields": [
+            "timestamp",
+            "userId",
+            "businessAppId",
+            "entityId",
+            "operation",
+            "target"
+          ],
+          "administrationProducesAudit": false,
+          "events": [
+            "SEED_RECORD_CREATED",
+            "RECORD_CREATED",
+            "RECORD_DELETED",
+            "STATE_TRANSITION",
+            "THEME_CHANGED",
+            "ADMINISTRATION_CHANGED",
+            "DEMO_SEED_COMPLETED"
+          ],
+          "rule": "The business operation or persistence boundary emits audit events; Administration does not own auditing.",
+          "ordinaryReadsAudited": false
+        }
+      },
+      {
+        "objectId": "seedService",
+        "instanceOf": "ContextualSharedService",
+        "specialization": "SeedService",
+        "contract": {
+          "referenceRule": "SEED_REFERENCES_RESOLVE_WITHIN_SAME_PARTITION",
+          "recordSource": "DEMO_SEED",
+          "seedVersion": "DEMO_SEED_V1",
+          "scope": "ONE_DETERMINISTIC_DATASET_PER_BUSINESS_PARTITION",
+          "idempotence": "DURABLE_MARKER_PREVENTS_RESEED_AFTER_USER_DELETION",
+          "applyWhen": "SEED_VERSION_MARKER_ABSENT",
+          "enabled": true
+        }
+      }
+    ]
+  },
+  "objectRelationships": {
+    "composition": [
+      {
+        "owner": "fourBusinessContainer",
+        "children": [
+          "robertApplication",
+          "sofiaApplication",
+          "marieApplication",
+          "hansApplication"
+        ],
+        "rule": "Four BusinessApplication instances are independent children and are never merged."
+      },
+      {
+        "owner": "robertApplication",
+        "children": [
+          "clients",
+          "engagements",
+          "invoices",
+          "ENGAGEMENT_LIFECYCLE",
+          "INVOICE_LIFECYCLE"
+        ],
+        "scope": "robert/robert_consulting"
+      },
+      {
+        "owner": "marieApplication",
+        "children": [
+          "menu-items",
+          "reservations",
+          "orders",
+          "ORDER_LIFECYCLE"
+        ],
+        "scope": "marie/marie_restaurant"
+      },
+      {
+        "owner": "hansApplication",
+        "children": [
+          "sellers",
+          "listings",
+          "orders",
+          "SELLER_LIFECYCLE",
+          "MARKET_ORDER_LIFECYCLE"
+        ],
+        "scope": "hans/hans_marketplace"
+      },
+      {
+        "owner": "sofiaApplication",
+        "children": [
+          "properties",
+          "tenants",
+          "leases",
+          "maintenance",
+          "LEASE_LIFECYCLE",
+          "MAINTENANCE_LIFECYCLE"
+        ],
+        "scope": "sofia/sofia_property"
+      }
+    ],
+    "associations": [
+      {
+        "fromType": "BusinessApplication",
+        "toObject": "uiProjection",
+        "passes": "ACTIVE_BUSINESS_CONTEXT",
+        "ownershipTransfer": false
+      },
+      {
+        "fromType": "BusinessApplication",
+        "toObject": "persistenceService",
+        "passes": "ACTIVE_BUSINESS_CONTEXT",
+        "ownershipTransfer": false
+      },
+      {
+        "fromType": "BusinessApplication",
+        "toObject": "requestContextResolver",
+        "passes": "ACTIVE_BUSINESS_CONTEXT",
+        "ownershipTransfer": false
+      },
+      {
+        "fromType": "BusinessApplication",
+        "toObject": "administrationProjection",
+        "passes": "ACTIVE_BUSINESS_CONTEXT",
+        "ownershipTransfer": false
+      },
+      {
+        "fromType": "BusinessApplication",
+        "toObject": "auditService",
+        "passes": "ACTIVE_BUSINESS_CONTEXT",
+        "ownershipTransfer": false
+      },
+      {
+        "fromType": "BusinessApplication",
+        "toObject": "seedService",
+        "passes": "ACTIVE_BUSINESS_CONTEXT",
+        "ownershipTransfer": false
+      }
+    ],
+    "entityReferences": [
+      {
+        "businessApplication": "robertApplication",
+        "onDelete": "RESTRICT",
+        "sourceEntity": "engagements",
+        "targetEntity": "clients",
+        "scope": "SAME_BUSINESS_PARTITION_ONLY",
+        "field": "clientId"
+      },
+      {
+        "businessApplication": "robertApplication",
+        "onDelete": "RESTRICT",
+        "sourceEntity": "invoices",
+        "targetEntity": "engagements",
+        "scope": "SAME_BUSINESS_PARTITION_ONLY",
+        "field": "engagementId"
+      },
+      {
+        "businessApplication": "hansApplication",
+        "onDelete": "RESTRICT",
+        "sourceEntity": "listings",
+        "targetEntity": "sellers",
+        "scope": "SAME_BUSINESS_PARTITION_ONLY",
+        "field": "sellerId"
+      },
+      {
+        "businessApplication": "hansApplication",
+        "onDelete": "RESTRICT",
+        "sourceEntity": "orders",
+        "targetEntity": "listings",
+        "scope": "SAME_BUSINESS_PARTITION_ONLY",
+        "field": "listingId"
+      },
+      {
+        "businessApplication": "sofiaApplication",
+        "onDelete": "RESTRICT",
+        "sourceEntity": "leases",
+        "targetEntity": "properties",
+        "scope": "SAME_BUSINESS_PARTITION_ONLY",
+        "field": "propertyId"
+      },
+      {
+        "businessApplication": "sofiaApplication",
+        "onDelete": "RESTRICT",
+        "sourceEntity": "leases",
+        "targetEntity": "tenants",
+        "scope": "SAME_BUSINESS_PARTITION_ONLY",
+        "field": "tenantId"
+      },
+      {
+        "businessApplication": "sofiaApplication",
+        "onDelete": "RESTRICT",
+        "sourceEntity": "maintenance",
+        "targetEntity": "properties",
+        "scope": "SAME_BUSINESS_PARTITION_ONLY",
+        "field": "propertyId"
+      }
+    ],
+    "lifecycleGovernance": [
+      {
+        "businessApplication": "robertApplication",
+        "stateMachine": "ENGAGEMENT_LIFECYCLE",
+        "governsEntity": "engagements",
+        "stateField": "status",
+        "transitions": [
+          {
+            "localizedActionLabel": {
+              "de": "Aktiv",
+              "en": "Active",
+              "es": "Activo",
+              "fr": "Actif"
+            },
+            "to": "ACTIVE",
+            "from": "PLANNED"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Pausiert",
+              "en": "On hold",
+              "es": "En espera",
+              "fr": "En attente"
+            },
+            "to": "ON_HOLD",
+            "from": "ACTIVE"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Aktiv",
+              "en": "Active",
+              "es": "Activo",
+              "fr": "Actif"
+            },
+            "to": "ACTIVE",
+            "from": "ON_HOLD"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Abgeschlossen",
+              "en": "Completed",
+              "es": "Completado",
+              "fr": "Terminé"
+            },
+            "to": "COMPLETED",
+            "from": "ACTIVE"
+          }
+        ],
+        "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+        "authority": "ACTIVE_BUSINESS_USER"
+      },
+      {
+        "businessApplication": "robertApplication",
+        "stateMachine": "INVOICE_LIFECYCLE",
+        "governsEntity": "invoices",
+        "stateField": "status",
+        "transitions": [
+          {
+            "localizedActionLabel": {
+              "de": "Ausgestellt",
+              "en": "Issued",
+              "es": "Emitida",
+              "fr": "Émise"
+            },
+            "to": "ISSUED",
+            "from": "DRAFT"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Bezahlt",
+              "en": "Paid",
+              "es": "Pagada",
+              "fr": "Payée"
+            },
+            "to": "PAID",
+            "from": "ISSUED"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Storniert",
+              "en": "Void",
+              "es": "Anulada",
+              "fr": "Annulée"
+            },
+            "to": "VOID",
+            "from": "DRAFT"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Storniert",
+              "en": "Void",
+              "es": "Anulada",
+              "fr": "Annulée"
+            },
+            "to": "VOID",
+            "from": "ISSUED"
+          }
+        ],
+        "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+        "authority": "ACTIVE_BUSINESS_USER"
+      },
+      {
+        "businessApplication": "marieApplication",
+        "stateMachine": "ORDER_LIFECYCLE",
+        "governsEntity": "orders",
+        "stateField": "status",
+        "transitions": [
+          {
+            "localizedActionLabel": {
+              "de": "In Zubereitung",
+              "en": "Preparing",
+              "es": "En preparación",
+              "fr": "En préparation"
+            },
+            "to": "PREPARING",
+            "from": "NEW"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Bereit",
+              "en": "Ready",
+              "es": "Lista",
+              "fr": "Prête"
+            },
+            "to": "READY",
+            "from": "PREPARING"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Serviert",
+              "en": "Served",
+              "es": "Servida",
+              "fr": "Servie"
+            },
+            "to": "SERVED",
+            "from": "READY"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Storniert",
+              "en": "Cancelled",
+              "es": "Cancelada",
+              "fr": "Annulée"
+            },
+            "to": "CANCELLED",
+            "from": "NEW"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Storniert",
+              "en": "Cancelled",
+              "es": "Cancelada",
+              "fr": "Annulée"
+            },
+            "to": "CANCELLED",
+            "from": "PREPARING"
+          }
+        ],
+        "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+        "authority": "ACTIVE_BUSINESS_USER"
+      },
+      {
+        "businessApplication": "hansApplication",
+        "stateMachine": "SELLER_LIFECYCLE",
+        "governsEntity": "sellers",
+        "stateField": "status",
+        "transitions": [
+          {
+            "localizedActionLabel": {
+              "de": "Aktiv",
+              "en": "Active",
+              "es": "Activo",
+              "fr": "Actif"
+            },
+            "to": "ACTIVE",
+            "from": "PENDING"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Gesperrt",
+              "en": "Suspended",
+              "es": "Suspendido",
+              "fr": "Suspendu"
+            },
+            "to": "SUSPENDED",
+            "from": "ACTIVE"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Aktiv",
+              "en": "Active",
+              "es": "Activo",
+              "fr": "Actif"
+            },
+            "to": "ACTIVE",
+            "from": "SUSPENDED"
+          }
+        ],
+        "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+        "authority": "ACTIVE_BUSINESS_USER"
+      },
+      {
+        "businessApplication": "hansApplication",
+        "stateMachine": "MARKET_ORDER_LIFECYCLE",
+        "governsEntity": "orders",
+        "stateField": "status",
+        "transitions": [
+          {
+            "localizedActionLabel": {
+              "de": "Bezahlt",
+              "en": "Paid",
+              "es": "Pagada",
+              "fr": "Payée"
+            },
+            "to": "PAID",
+            "from": "PLACED"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Erfüllt",
+              "en": "Fulfilled",
+              "es": "Completado",
+              "fr": "Traitée"
+            },
+            "to": "FULFILLED",
+            "from": "PAID"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Storniert",
+              "en": "Cancelled",
+              "es": "Cancelada",
+              "fr": "Annulée"
+            },
+            "to": "CANCELLED",
+            "from": "PLACED"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Storniert",
+              "en": "Cancelled",
+              "es": "Cancelada",
+              "fr": "Annulée"
+            },
+            "to": "CANCELLED",
+            "from": "PAID"
+          }
+        ],
+        "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+        "authority": "ACTIVE_BUSINESS_USER"
+      },
+      {
+        "businessApplication": "sofiaApplication",
+        "stateMachine": "LEASE_LIFECYCLE",
+        "governsEntity": "leases",
+        "stateField": "status",
+        "transitions": [
+          {
+            "localizedActionLabel": {
+              "de": "Aktiv",
+              "en": "Active",
+              "es": "Activo",
+              "fr": "Actif"
+            },
+            "to": "ACTIVE",
+            "from": "DRAFT"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Abgelaufen",
+              "en": "Expired",
+              "es": "Vencido",
+              "fr": "Expiré"
+            },
+            "to": "EXPIRED",
+            "from": "ACTIVE"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Beendet",
+              "en": "Terminated",
+              "es": "Terminado",
+              "fr": "Résilié"
+            },
+            "to": "TERMINATED",
+            "from": "ACTIVE"
+          }
+        ],
+        "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+        "authority": "ACTIVE_BUSINESS_USER"
+      },
+      {
+        "businessApplication": "sofiaApplication",
+        "stateMachine": "MAINTENANCE_LIFECYCLE",
+        "governsEntity": "maintenance",
+        "stateField": "status",
+        "transitions": [
+          {
+            "localizedActionLabel": {
+              "de": "Zugewiesen",
+              "en": "Assigned",
+              "es": "Asignada",
+              "fr": "Assignée"
+            },
+            "to": "ASSIGNED",
+            "from": "OPEN"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "In Bearbeitung",
+              "en": "In progress",
+              "es": "En progreso",
+              "fr": "En cours"
+            },
+            "to": "IN_PROGRESS",
+            "from": "ASSIGNED"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Abgeschlossen",
+              "en": "Completed",
+              "es": "Completado",
+              "fr": "Terminé"
+            },
+            "to": "COMPLETED",
+            "from": "IN_PROGRESS"
+          },
+          {
+            "localizedActionLabel": {
+              "de": "Geschlossen",
+              "en": "Closed",
+              "es": "Cerrada",
+              "fr": "Fermée"
+            },
+            "to": "CLOSED",
+            "from": "COMPLETED"
+          }
+        ],
+        "uiTrigger": "ROW_ACTION_BUTTONS_FOR_ALLOWED_TRANSITIONS",
+        "authority": "ACTIVE_BUSINESS_USER"
+      }
+    ]
+  },
+  "polymorphicRuntime": {
+    "resolution": "fourBusinessContainer.resolve(selectedUserId) returns exactly one BusinessApplication instance.",
+    "rendering": "uiProjection.executeWith(activeApplication.context()) renders the active Blueprint and replaces the previous projection.",
+    "recordOperation": "activeApplication dispatches an entity operation only when the entity is declared by its configured Blueprint.",
+    "stateTransition": "activeApplication dispatches only a transition declared by the state machine composed into its configured Blueprint.",
+    "administration": "administrationProjection reconstructs controls and values from the active application without merging another instance's state.",
+    "prohibitedImplementation": "Do not implement domain switching with four duplicated applications or a business-name if/else chain when polymorphic Blueprint dispatch can provide the behavior."
+  },
+  "globalInvariants": [
+    "BaseBusinessApplicationBlueprint contains common contracts, not shared mutable business data.",
+    "Derived Blueprint types may specialize declared variation points but may not weaken isolation, routing, typing, audit or Administration requirements.",
+    "BusinessApplication instances own separate SELF, runtime state, Administration state and persistence partitions.",
+    "The UI uses REPLACE_NOT_MERGE projection.",
+    "Shared physical persistence uses the full canonical compound storage key.",
+    "Cross-business joins, references and overrides are prohibited.",
+    "The user selector is demonstration behavior and is not production authentication.",
+    "All prohibited-inference rules from the control script remain mandatory."
+  ],
+  "prohibitedInference": [
+    "Do not invent entities such as TIME_ENTRY or fields such as totalAmount.",
+    "Do not infer hourly-rate or invoice calculations; Invoice.amount is manual input.",
+    "Do not add enum values such as Invoice.CANCELLED; use only declared enumValues.",
+    "Do not silently implement suggested enhancements such as search; report them separately."
+  ],
+  "constructionPlan": [
+    "Implement interfaces and BaseBusinessApplicationBlueprint.",
+    "Implement the immutable four derived Blueprint types.",
+    "Implement BusinessApplication as the common runtime object.",
+    "Instantiate the four owner-bound BusinessApplication objects.",
+    "Implement shared context-aware service objects.",
+    "Wire composition, associations, entity references and lifecycle governance exactly as declared.",
+    "Enforce global invariants at server boundaries and persistence boundaries.",
+    "Render the full standalone Administration view.",
+    "Run deterministic seeds once per partition.",
+    "Generate and execute conformance tests before delivery."
+  ],
+  "constructionContract": {
+    "target": "PLAIN_JAVA_LOCAL_WEB_APPLICATION",
+    "requirements": [
+      "Decode the complete V4 AST before implementation.",
+      "Keep all four business applications independent; shared UI and persistence are infrastructure only.",
+      "Render fields with declared controls and reference pickers with target displayField plus secondaryDisplayField.",
+      "Store canonical enum values but display localized labels; allow state changes only through declared transition buttons.",
+      "Implement the complete required standalone Administration navigation view, all declared controls, localized labels, save action, warning, re-projection, persistence, auditing, and acceptance scenarios; a theme-only implementation is noncompliant.",
+      "Apply deterministic seeds once per partition and never reseed after user deletion.",
+      "Emit declared audit events through Audit NEURON, not Administration.",
+      "Persist themes and Administration across restart.",
+      "Enforce canonical composite storage keys and server-resolved request context.",
+      "The selector is demo behavior, not production authentication.",
+      "Do not invent TIME_ENTRY, totalAmount, hourly calculations, Invoice.CANCELLED, search, or any other undeclared behavior.",
+      "Report optional additions separately from implemented requirements.",
+      "Deliver reproducible build and executable verification evidence."
+    ],
+    "scope": "CONTEXTUAL_MULTI_BUSINESS_SOFTWARE_CONSTRUCTION",
+    "oopRequirements": [
+      "Use one common BusinessApplication runtime abstraction.",
+      "Use one immutable BaseBusinessApplicationBlueprint contract.",
+      "Represent Consulting, Restaurant, Marketplace and Property Management as derived Blueprint types.",
+      "Represent Robert, Sofia, Marie and Hans applications as separate runtime instances configured by those derived types.",
+      "Use composition for owned entities and state machines, association for shared services, and typed references for entity relationships.",
+      "Preserve polymorphic behavior without merging business state."
+    ]
+  },
+  "semanticEquivalence": {
+    "controlFormat": "LLM_AST_TOKEN_MANIFEST_V4",
+    "controlSemanticValidation": {
+      "contract": "MULTI_BUSINESS_SEMANTIC_PREFLIGHT_V4",
+      "status": "PASS",
+      "issues": [],
+      "businessCount": 4,
+      "entityCount": 13,
+      "fieldCount": 40,
+      "relationshipCount": 7,
+      "workflowCount": 7,
+      "typedFields": true,
+      "stateTransitionsValidated": true,
+      "separateBusinessSelves": true,
+      "uniquePartitions": true,
+      "duplicateEntityIdsAcrossPartitions": "ALLOWED_AND_SCOPED",
+      "canonicalStorageKeyValidated": true,
+      "requestContextValidated": true,
+      "uiControlMappingsValidated": true,
+      "pickerDisplayBindingsValidated": true,
+      "localizedEnumLabelsValidated": true,
+      "seedContractValidated": true,
+      "auditTriggersValidated": true,
+      "administrationSurfaceValidated": true,
+      "administrationControlsValidated": true,
+      "administrationPersistenceValidated": true,
+      "administrationAcceptanceScenariosValidated": true,
+      "prohibitedInferenceDeclared": true,
+      "accessMode": "DEMONSTRATION_USER_SWITCHER"
+    },
+    "oopModelValidation": {
+      "status": "PASS",
+      "baseBlueprintTypeCount": 1,
+      "derivedBlueprintTypeCount": 4,
+      "businessApplicationInstanceCount": 4,
+      "entityCount": 13,
+      "fieldCount": 40,
+      "relationshipCount": 7,
+      "workflowCount": 7,
+      "sharedServiceObjectCount": 6,
+      "allBusinessInstancesDerivedFromBaseContract": true,
+      "allBusinessStateEncapsulated": true,
+      "sameDomainSemanticsAsControl": true,
+      "readyForIndependentLlmExperiment": true
+    },
+    "acceptanceRule": "The OOP experiment succeeds only if generated behavior conforms to the control script; architectural elegance alone is insufficient."
+  }
+}
